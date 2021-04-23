@@ -7,12 +7,13 @@ import ir.pmoslem.covid_19tracker.view.getStringDataFromSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeRepository(
+class HomeRepository @Inject constructor(
     private val api: ApiService,
     private val countryDao: CountryDao,
     private val sharedPreferences: SharedPreferences?
-) : Repository() {
+){
 
     fun getCountriesDataFromServer() {
         GlobalScope.launch(Dispatchers.IO) {

@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.pmoslem.covid_19tracker.model.Country
 import ir.pmoslem.covid_19tracker.model.repository.HomeRepository
 import kotlinx.coroutines.*
+import javax.inject.Inject
+import javax.inject.Named
 
-class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(var homeRepository: HomeRepository) : ViewModel() {
 
     val progressIndicator: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 

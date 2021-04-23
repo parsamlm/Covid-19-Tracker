@@ -3,6 +3,7 @@ package ir.pmoslem.covid_19tracker.model
 import retrofit2.Response
 import retrofit2.http.GET
 
+
 interface ApiService {
 
     @GET("npm-covid-data/countries")

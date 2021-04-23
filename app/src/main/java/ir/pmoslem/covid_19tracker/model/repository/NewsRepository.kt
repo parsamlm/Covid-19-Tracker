@@ -8,11 +8,12 @@ import ir.pmoslem.covid_19tracker.model.NewsObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewsRepository(
+class NewsRepository @Inject constructor(
     private val api: ApiService,
     private val newsDao: NewsDao
-) : Repository() {
+) {
 
     fun getNewsDataFromServer() {
         GlobalScope.launch(Dispatchers.IO) {

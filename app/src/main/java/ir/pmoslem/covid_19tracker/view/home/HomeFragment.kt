@@ -1,6 +1,5 @@
 package ir.pmoslem.covid_19tracker.view.home
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,30 +7,35 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import ir.pmoslem.covid_19tracker.R
 import ir.pmoslem.covid_19tracker.databinding.FragmentHomeBinding
 import ir.pmoslem.covid_19tracker.model.*
-import ir.pmoslem.covid_19tracker.model.repository.HomeRepository
 import ir.pmoslem.covid_19tracker.view.showSnackBar
 import ir.pmoslem.covid_19tracker.viewmodel.HomeViewModel
-import ir.pmoslem.covid_19tracker.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var countriesName: List<String>
     private lateinit var dataBinding: FragmentHomeBinding
-    private lateinit var homeViewModel: HomeViewModel
     private lateinit var userCurrentCountry: String
     private lateinit var arrayAdapter: ArrayAdapter<String>
+
+    @Inject
+    lateinit var userData: UserData
+
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,17 +47,7 @@ class HomeFragment : Fragment() {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val root = dataBinding.root
 
-        val sharedPreferences = root.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val homeRepository = HomeRepository(
-            ApiServiceProvider.apiService,
-            AppDatabase.getInstance(root.context).getCountryDao(),
-            sharedPreferences
-        )
 
-        // ViewModel defining
-        homeViewModel = ViewModelProvider(this,
-            HomeViewModelFactory(homeRepository)
-        ).get(HomeViewModel::class.java)
         dataBinding.viewmodel = homeViewModel
 
         dataBinding.btnNewsFragment.setOnClickListener { v ->
@@ -92,7 +86,7 @@ class HomeFragment : Fragment() {
 
                 .setSingleChoiceItems(arrayAdapter, checkedItem) { _, which ->
                     userCurrentCountry = arrayAdapter.getItem(which).toString()
-                    UserData(requireContext()).savePreferredCountry(userCurrentCountry)
+                    userData.savePreferredCountry(userCurrentCountry)
                     userCountryLiveData.value = userCurrentCountry
                     checkedItem = getItemPositionInArrayAdapter(arrayAdapter)
                 }
@@ -124,6 +118,8 @@ class HomeFragment : Fragment() {
                     dataBinding.cvCheckoutMain.visibility = View.VISIBLE
                 }
             })
+
+
 
         return root
     }

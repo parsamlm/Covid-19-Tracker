@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import ir.pmoslem.covid_19tracker.databinding.FragmentNewsBinding
-import ir.pmoslem.covid_19tracker.model.ApiServiceProvider
-import ir.pmoslem.covid_19tracker.model.AppDatabase
-import ir.pmoslem.covid_19tracker.model.repository.NewsRepository
-import ir.pmoslem.covid_19tracker.viewmodel.HomeViewModelFactory
 import ir.pmoslem.covid_19tracker.viewmodel.NewsViewModel
 
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
 
-    private lateinit var newsViewModel: NewsViewModel
     private lateinit var viewBinding: FragmentNewsBinding
     private lateinit var newsAdapter: NewsAdapter
+
+    private val newsViewModel: NewsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,14 +28,6 @@ class NewsFragment : Fragment() {
         viewBinding = FragmentNewsBinding.inflate(inflater, container, false)
         val root = viewBinding.root
 
-        val newsRepository = NewsRepository(
-            ApiServiceProvider.apiService,
-            AppDatabase.getInstance(root.context).getNewsDao()
-        )
-        newsViewModel = ViewModelProvider(
-            this,
-            HomeViewModelFactory(newsRepository)
-        ).get(NewsViewModel::class.java)
 
         newsAdapter = NewsAdapter(requireContext())
 
