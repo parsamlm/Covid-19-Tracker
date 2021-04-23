@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Covid-19 Tracker</string>
+    <string name="title_home">Home</string>
+    <string name="title_news">News</string>
+    <string name="lets_check_your_location_info">Lets check your location info!</string>
+    <string name="profile_picture_description">Profile picture</string>
+    <string name="cases">Cases</string>
+    <string name="stay_home_stay_safe">Stay Home, Stay Safe</string>
+    <string name="recovered">Recovered</string>
+    <string name="deaths">Deaths</string>
+    <string name="changeCountryText">Change</string>
+    <string name="covid_19_news">Covid-19 News</string>
+    <string name="check_out_news">Check out world health news!</string>
+    <string name="world_news_icon">world news icon</string>
+    <string name="arrow_button_to_news_page">arrow button to news page</string>
+    <string name="hello">Hello!</string>
+    <string name="this_application_shows_covid_19_stats">This application shows COVID-19 stats</string>
+    <string name="please_enter_your_name">Please enter your name:</string>
+    <string name="done">Done</string>
+    <string name="name">Name</string>
+
+    <string name="country_change_dialog_title">Choose Your Country:</string>
+    <string name="news">News</string>
+    <string name="latest">Latest</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+</resources>
