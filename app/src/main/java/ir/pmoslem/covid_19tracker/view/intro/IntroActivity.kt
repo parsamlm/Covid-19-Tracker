@@ -34,7 +34,7 @@ class IntroActivity : AppCompatActivity() {
             startMainActivity()
         }
 
-        binding.tietName.addTextChangedListener(object : TextWatcher {
+        binding.tietNameIntro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -44,10 +44,10 @@ class IntroActivity : AppCompatActivity() {
                 }
 
                 isDoneButtonActive = if (s.length >= 3) {
-                    binding.doneButton.setBackgroundColor(Color.WHITE)
+                    binding.btnDoneIntro.setBackgroundColor(Color.WHITE)
                     true
                 } else {
-                    binding.doneButton.setBackgroundColor(
+                    binding.btnDoneIntro.setBackgroundColor(
                         ContextCompat.getColor(this@IntroActivity, R.color.gray_150)
                     )
                     false
@@ -59,9 +59,9 @@ class IntroActivity : AppCompatActivity() {
             }
         })
 
-        binding.doneButton.setOnClickListener {
+        binding.btnDoneIntro.setOnClickListener {
             if (isDoneButtonActive) {
-                userData.saveUserName(binding.tietName.text.toString().trim())
+                userData.saveUserName(binding.tietNameIntro.text.toString().trim())
                 startMainActivity()
             }
         }

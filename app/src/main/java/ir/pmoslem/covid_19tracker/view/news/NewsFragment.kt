@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +36,6 @@ class NewsFragment : Fragment() {
         newsViewModel.getNewsFromDatabase().observe(requireActivity(),
             { newsList ->
                 if (newsList != null) {
-                    newsViewModel.progressIndicator.value = false
                     newsAdapter.setNews(newsList)
                     viewBinding.rvNews.layoutManager =
                         LinearLayoutManager(root.context, RecyclerView.HORIZONTAL, false)
@@ -45,20 +43,20 @@ class NewsFragment : Fragment() {
                 }
             })
 
-        newsViewModel.progressIndicator.observe(requireActivity(),
+        newsViewModel.getProgressBarStatus().observe(requireActivity(),
             { visibility ->
-                if(visibility!!){
-                    viewBinding.newsProgressBar.visibility = View.VISIBLE
+                if (visibility!!) {
+                    viewBinding.pbLoadNews.visibility = View.VISIBLE
                     viewBinding.rvNews.visibility = View.GONE
-                }else{
-                    viewBinding.newsProgressBar.visibility = View.GONE
+                } else {
+                    viewBinding.pbLoadNews.visibility = View.GONE
                     viewBinding.rvNews.visibility = View.VISIBLE
                 }
             })
 
         newsViewModel.getErrorStatus().observe(requireActivity(),
             { isErrorOccurred ->
-                if(isErrorOccurred == true){
+                if (isErrorOccurred == true) {
                     showSnackBar("Couldn't connect to the server", R.color.redColorSnackBar)
                 }
             })

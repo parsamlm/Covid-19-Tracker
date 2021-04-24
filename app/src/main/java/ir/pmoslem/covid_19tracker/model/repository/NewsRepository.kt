@@ -8,21 +8,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
 
 private const val ERROR_TAG: String = "ResponseError"
-private var isErrorOccurred = MutableLiveData<Boolean>()
+private val isErrorOccurred = MutableLiveData<Boolean>()
+private val progressBarStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 class NewsRepository @Inject constructor(
     private val api: ApiService,
     private val newsDao: NewsDao
 ) {
 
+    init {
+        progressBarStatus.postValue(true)
+    }
+
     fun getNewsDataFromServer() {
         GlobalScope.launch(Dispatchers.IO) {
-            try{
+            try {
                 val response = api.getNewsData()
                 if (response.isSuccessful) {
                     val newsObject: NewsObject? = response.body()
@@ -30,12 +34,14 @@ class NewsRepository @Inject constructor(
                     if (newsList != null) {
                         newsDao.insertNews(newsList)
                         isErrorOccurred.postValue(false)
+                        progressBarStatus.postValue(false)
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 cancel()
                 Log.e(ERROR_TAG, "Error occurred while getting response")
                 isErrorOccurred.postValue(true)
+                progressBarStatus.postValue(true)
             }
         }
     }
@@ -44,8 +50,12 @@ class NewsRepository @Inject constructor(
         return newsDao.getAllNews()
     }
 
-    fun getErrorStatus(): LiveData<Boolean>{
+    fun getErrorStatus(): LiveData<Boolean> {
         return isErrorOccurred
+    }
+
+    fun getProgressBarStatus(): LiveData<Boolean>{
+        return progressBarStatus
     }
 
 }

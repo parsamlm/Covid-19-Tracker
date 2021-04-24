@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="ir.pmoslem.covid_19tracker.viewmodel.HomeViewModel" />
@@ -20,7 +21,7 @@
         tools:context=".view.home.HomeFragment">
 
         <TextView
-            android:id="@+id/mainGreetTv"
+            android:id="@+id/tv_greet_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.userName}"
@@ -31,19 +32,19 @@
             tools:text="@{viewmodel.userName}" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_letsCheck_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/lets_check_your_location_info"
             android:textColor="@color/textColor"
             android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile_home"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainGreetTv" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_greet_home" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_profile_home"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:contentDescription="@string/profile_picture_description"
@@ -52,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
-            android:id="@+id/loading_progressBar"
+            android:id="@+id/pb_load_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -62,23 +63,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_stats_main"
+            android:id="@+id/cv_stats_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:visibility="visible"
             app:cardCornerRadius="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/cv_checkout_main"
+            app:layout_constraintBottom_toTopOf="@+id/cv_checkout_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/tv_letsCheck_home">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/tvCountryName"
+                    android:id="@+id/tv_countryName_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -87,7 +88,7 @@
                     tools:text="Iran" />
 
                 <TextView
-                    android:id="@+id/btnChangeCountry"
+                    android:id="@+id/btn_changeCountry_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -96,18 +97,18 @@
                     android:textSize="13sp" />
 
                 <View
-                    android:id="@+id/divider"
+                    android:id="@+id/divider_home"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_below="@id/btnChangeCountry"
+                    android:layout_below="@id/btn_changeCountry_home"
                     android:background="#2E3755" />
 
 
                 <LinearLayout
-                    android:id="@+id/stats_layout"
+                    android:id="@+id/layout_stats_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/divider"
+                    android:layout_below="@id/divider_home"
                     android:background="@drawable/stats_bg"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
@@ -128,7 +129,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:id="@+id/tv_casesValue"
+                            android:id="@+id/tv_casesValue_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -154,7 +155,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:id="@+id/tv_recoveredValue"
+                            android:id="@+id/tv_recoveredValue_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -180,7 +181,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:id="@+id/tv_deathsValue"
+                            android:id="@+id/tv_deathsValue_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -193,10 +194,10 @@
                 </LinearLayout>
 
                 <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/home_animation"
+                    android:id="@+id/animation_home"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_below="@+id/stats_layout"
+                    android:layout_below="@+id/layout_stats_home"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -208,7 +209,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/home_animation"
+                    android:layout_below="@id/animation_home"
                     android:layout_centerHorizontal="true"
                     android:text="@string/stay_home_stay_safe"
                     android:textColor="@color/recoveredColor" />
@@ -218,7 +219,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_checkout_main"
+            android:id="@+id/cv_checkout_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -226,14 +227,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_stats_main">
+            app:layout_constraintTop_toBottomOf="@+id/cv_stats_home">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/worldIv"
+                    android:id="@+id/iv_world_home"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerVertical="true"
@@ -241,17 +242,17 @@
                     app:srcCompat="@drawable/ic_world" />
 
                 <TextView
-                    android:id="@+id/checkOutNewsTv"
+                    android:id="@+id/tv_checkOutNews_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/worldIv"
+                    android:layout_toEndOf="@id/iv_world_home"
                     android:text="@string/check_out_news"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:id="@+id/btn_newsFragment"
+                    android:id="@+id/btn_newsFragment_home"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"

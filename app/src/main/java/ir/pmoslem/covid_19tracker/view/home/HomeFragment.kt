@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
 
         dataBinding.viewmodel = homeViewModel
 
-        dataBinding.btnNewsFragment.setOnClickListener { v ->
+        dataBinding.btnNewsFragmentHome.setOnClickListener { v ->
             if (v != null) {
                 Navigation.findNavController(v)
                     .navigate(R.id.action_navigation_home_to_navigation_news)
@@ -78,7 +77,7 @@ class HomeFragment : Fragment() {
 
 
         // Change country listener logic
-        dataBinding.btnChangeCountry.setOnClickListener {
+        dataBinding.btnChangeCountryHome.setOnClickListener {
             MaterialAlertDialogBuilder(root.context)
                 .setTitle(resources.getString(R.string.country_change_dialog_title))
                 .setPositiveButton(resources.getString(R.string.done)) { _, _ ->
@@ -100,30 +99,31 @@ class HomeFragment : Fragment() {
             })
 
 
-        dataBinding.homeAnimation.setOnClickListener {
-            val animation: LottieAnimationView = dataBinding.homeAnimation
+        dataBinding.animationHome.setOnClickListener {
+            val animation: LottieAnimationView = dataBinding.animationHome
             if (!animation.isAnimating) {
                 animation.playAnimation()
             }
         }
 
-        homeViewModel.progressIndicator.observe(requireActivity(),
+
+        homeViewModel.getProgressBarStatus().observe(requireActivity(),
             { visibility ->
-                if(visibility!!){
-                    dataBinding.loadingProgressBar.visibility = View.VISIBLE
-                    dataBinding.cvStatsMain.visibility = View.GONE
-                    dataBinding.cvCheckoutMain.visibility = View.GONE
-                }else{
-                    dataBinding.loadingProgressBar.visibility = View.GONE
-                    dataBinding.cvStatsMain.visibility = View.VISIBLE
-                    dataBinding.cvCheckoutMain.visibility = View.VISIBLE
+                if (visibility!!) {
+                    dataBinding.pbLoadHome.visibility = View.VISIBLE
+                    dataBinding.cvStatsHome.visibility = View.GONE
+                    dataBinding.cvCheckoutHome.visibility = View.GONE
+                } else {
+                    dataBinding.pbLoadHome.visibility = View.GONE
+                    dataBinding.cvStatsHome.visibility = View.VISIBLE
+                    dataBinding.cvCheckoutHome.visibility = View.VISIBLE
                 }
             })
 
 
         homeViewModel.getErrorStatus().observe(requireActivity(),
             { isErrorOccurred ->
-                if(isErrorOccurred == true){
+                if (isErrorOccurred == true) {
                     showSnackBar("Couldn't connect to the server", R.color.redColorSnackBar)
                 }
             })
@@ -137,15 +137,15 @@ class HomeFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             val country: Country? = homeViewModel.getCountryDataByName(countryName)
             country?.let {
-                dataBinding.tvCountryName.text = country.countryName
-                dataBinding.tvCasesValue.text = country.totalCases.toString()
-                dataBinding.tvRecoveredValue.text = country.totalRecovered.toString()
-                dataBinding.tvDeathsValue.text = country.totalDeaths.toString()
+                dataBinding.tvCountryNameHome.text = country.countryName
+                dataBinding.tvCasesValueHome.text = country.totalCases.toString()
+                dataBinding.tvRecoveredValueHome.text = country.totalRecovered.toString()
+                dataBinding.tvDeathsValueHome.text = country.totalDeaths.toString()
             }
         }
     }
 
-    private fun getItemPositionInArrayAdapter(arrayAdapter: ArrayAdapter<String>): Int{
+    private fun getItemPositionInArrayAdapter(arrayAdapter: ArrayAdapter<String>): Int {
         return arrayAdapter.getPosition(userCurrentCountry)
     }
 

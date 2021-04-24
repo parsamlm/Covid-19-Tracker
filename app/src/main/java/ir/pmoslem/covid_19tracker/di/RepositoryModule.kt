@@ -20,7 +20,7 @@ object RepositoryModule {
         api: ApiService,
         countryDao: CountryDao,
         sharedPreferences: SharedPreferences?
-    ): HomeRepository{
+    ): HomeRepository {
         return HomeRepository(api, countryDao, sharedPreferences)
     }
 
@@ -30,7 +30,7 @@ object RepositoryModule {
     fun provideNewsRepository(
         api: ApiService,
         newsDao: NewsDao
-    ): NewsRepository{
+    ): NewsRepository {
         return NewsRepository(api, newsDao)
     }
 

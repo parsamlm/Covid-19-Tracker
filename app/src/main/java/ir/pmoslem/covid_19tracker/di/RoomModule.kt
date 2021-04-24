@@ -18,19 +18,19 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase{
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "db_country_stats").build()
     }
 
     @Singleton
     @Provides
-    fun provideCountryDao(appDatabase: AppDatabase): CountryDao{
+    fun provideCountryDao(appDatabase: AppDatabase): CountryDao {
         return appDatabase.getCountryDao()
     }
 
     @Singleton
     @Provides
-    fun provideNewsDao(appDatabase: AppDatabase): NewsDao{
+    fun provideNewsDao(appDatabase: AppDatabase): NewsDao {
         return appDatabase.getNewsDao()
     }
 

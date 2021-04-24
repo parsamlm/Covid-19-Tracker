@@ -7,7 +7,7 @@
     android:layoutDirection="ltr">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_hello_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_hint_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,7 +28,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_hello_intro" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,13 +37,13 @@
         android:text="@string/please_enter_your_name"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/til_name"
-        app:layout_constraintEnd_toEndOf="@+id/til_name"
-        app:layout_constraintStart_toStartOf="@+id/til_name" />
+        app:layout_constraintBottom_toTopOf="@+id/til_name_intro"
+        app:layout_constraintEnd_toEndOf="@+id/til_name_intro"
+        app:layout_constraintStart_toStartOf="@+id/til_name_intro" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_name"
+        android:id="@+id/til_name_intro"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_name"
+            android:id="@+id/tiet_name_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
@@ -82,7 +82,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/doneButton"
+        android:id="@+id/btn_done_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray_150"
@@ -93,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_name" />
+        app:layout_constraintTop_toBottomOf="@+id/til_name_intro" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

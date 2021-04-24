@@ -16,25 +16,32 @@ import javax.inject.Inject
 
 private const val ERROR_TAG: String = "ResponseError"
 private var isErrorOccurred = MutableLiveData<Boolean>()
+private val progressBarStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 class HomeRepository @Inject constructor(
     private val api: ApiService,
     private val countryDao: CountryDao,
     private val sharedPreferences: SharedPreferences?
-){
+) {
+
+    init {
+        progressBarStatus.postValue(true)
+    }
 
     fun getCountriesDataFromServer() {
         GlobalScope.launch(Dispatchers.IO) {
-            try{
+            try {
                 val response: Response<List<Country>> = api.getCountriesData()
                 if (response.isSuccessful) {
                     countryDao.insertCountriesData(response.body()!!)
                     isErrorOccurred.postValue(false)
+                    progressBarStatus.postValue(false)
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 cancel()
                 Log.e(ERROR_TAG, "Error occurred while getting response")
                 isErrorOccurred.postValue(true)
+                progressBarStatus.postValue(true)
             }
         }
     }
@@ -44,7 +51,12 @@ class HomeRepository @Inject constructor(
     }
 
     fun getUserPreferredName(): String {
-        return "Hello ${sharedPreferences?.getStringDataFromSharedPreferences(USER_NAME_KEY, "")} 👋🏻"
+        return "Hello ${
+            sharedPreferences?.getStringDataFromSharedPreferences(
+                USER_NAME_KEY,
+                ""
+            )
+        } 👋🏻"
     }
 
     fun getUserPreferredCountryName(): String? {
@@ -55,13 +67,12 @@ class HomeRepository @Inject constructor(
         return countryDao.getCountryDataByName(countryName)
     }
 
-    fun getErrorStatus(): LiveData<Boolean>{
+    fun getErrorStatus(): LiveData<Boolean> {
         return isErrorOccurred
     }
 
-
-
-
-
+    fun getProgressBarStatus(): LiveData<Boolean>{
+        return progressBarStatus
+    }
 
 }

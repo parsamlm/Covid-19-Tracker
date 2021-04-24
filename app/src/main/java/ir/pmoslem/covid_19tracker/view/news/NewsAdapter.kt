@@ -12,7 +12,8 @@ import ir.pmoslem.covid_19tracker.R
 import ir.pmoslem.covid_19tracker.model.News
 import javax.inject.Inject
 
-class NewsAdapter @Inject constructor(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter @Inject constructor(val context: Context) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private lateinit var newsList: List<News>
 
     fun setNews(news: List<News>) {

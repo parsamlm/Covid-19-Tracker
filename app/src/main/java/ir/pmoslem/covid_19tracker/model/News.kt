@@ -14,3 +14,8 @@ data class News(
     @SerializedName("content")
     val description: String
 )
+
+data class NewsObject(
+    @SerializedName("news")
+    val news: List<News>?
+)
