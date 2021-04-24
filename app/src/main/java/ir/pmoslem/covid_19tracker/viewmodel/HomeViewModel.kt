@@ -9,7 +9,6 @@ import ir.pmoslem.covid_19tracker.model.Country
 import ir.pmoslem.covid_19tracker.model.repository.HomeRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(var homeRepository: HomeRepository) : ViewModel() {
@@ -39,6 +38,11 @@ class HomeViewModel @Inject constructor(var homeRepository: HomeRepository) : Vi
         }
         return country
     }
+
+    fun getErrorStatus(): LiveData<Boolean>{
+        return homeRepository.getErrorStatus()
+    }
+
 
 
 }

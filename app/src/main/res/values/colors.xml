@@ -21,4 +21,8 @@
     <color name="deathsColor">#F15051</color>
 
     <color name="gray_150">#969696</color>
+
+
+    <color name="redColorSnackBar">#CC0305</color>
+    <color name="greenColorSnackBar">#0B8028</color>
 </resources>

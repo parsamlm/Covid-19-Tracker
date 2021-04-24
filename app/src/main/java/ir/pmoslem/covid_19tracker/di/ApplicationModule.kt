@@ -14,12 +14,11 @@ import ir.pmoslem.covid_19tracker.model.UserData
 object ApplicationModule {
 
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("user", Context.MODE_PRIVATE)
-    }
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("user", Context.MODE_PRIVATE)
 
 
     @Provides
-    fun provideUserData(@ApplicationContext context: Context): UserData =  UserData(context)
+    fun provideUserData(@ApplicationContext context: Context): UserData = UserData(context)
 
 }

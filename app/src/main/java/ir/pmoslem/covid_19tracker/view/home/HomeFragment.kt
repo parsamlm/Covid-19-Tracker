@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -81,7 +82,7 @@ class HomeFragment : Fragment() {
             MaterialAlertDialogBuilder(root.context)
                 .setTitle(resources.getString(R.string.country_change_dialog_title))
                 .setPositiveButton(resources.getString(R.string.done)) { _, _ ->
-                    showSnackBar("Country changed successfully!")
+                    showSnackBar("Country changed successfully!", R.color.greenColorSnackBar)
                 }
 
                 .setSingleChoiceItems(arrayAdapter, checkedItem) { _, which ->
@@ -119,6 +120,13 @@ class HomeFragment : Fragment() {
                 }
             })
 
+
+        homeViewModel.getErrorStatus().observe(requireActivity(),
+            { isErrorOccurred ->
+                if(isErrorOccurred == true){
+                    showSnackBar("Couldn't connect to the server", R.color.redColorSnackBar)
+                }
+            })
 
 
         return root

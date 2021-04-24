@@ -1,13 +1,21 @@
 package ir.pmoslem.covid_19tracker.model.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ir.pmoslem.covid_19tracker.model.*
 import ir.pmoslem.covid_19tracker.view.getStringDataFromSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
+
+private const val ERROR_TAG: String = "ResponseError"
+private var isErrorOccurred = MutableLiveData<Boolean>()
 
 class HomeRepository @Inject constructor(
     private val api: ApiService,
@@ -17,12 +25,18 @@ class HomeRepository @Inject constructor(
 
     fun getCountriesDataFromServer() {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = api.getCountriesData()
-            if (response.isSuccessful) {
-                countryDao.insertCountriesData(response.body()!!)
+            try{
+                val response: Response<List<Country>> = api.getCountriesData()
+                if (response.isSuccessful) {
+                    countryDao.insertCountriesData(response.body()!!)
+                    isErrorOccurred.postValue(false)
+                }
+            }catch (e:Exception){
+                cancel()
+                Log.e(ERROR_TAG, "Error occurred while getting response")
+                isErrorOccurred.postValue(true)
             }
         }
-        //todo Error handling
     }
 
     fun getCountriesNameFromDatabase(): LiveData<List<String>> {
@@ -40,6 +54,14 @@ class HomeRepository @Inject constructor(
     suspend fun getCountryDataByNameFromDatabase(countryName: String): Country? {
         return countryDao.getCountryDataByName(countryName)
     }
+
+    fun getErrorStatus(): LiveData<Boolean>{
+        return isErrorOccurred
+    }
+
+
+
+
 
 
 }

@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import ir.pmoslem.covid_19tracker.R
 import ir.pmoslem.covid_19tracker.databinding.FragmentNewsBinding
+import ir.pmoslem.covid_19tracker.view.showSnackBar
 import ir.pmoslem.covid_19tracker.viewmodel.NewsViewModel
 
 @AndroidEntryPoint
@@ -50,6 +53,13 @@ class NewsFragment : Fragment() {
                 }else{
                     viewBinding.newsProgressBar.visibility = View.GONE
                     viewBinding.rvNews.visibility = View.VISIBLE
+                }
+            })
+
+        newsViewModel.getErrorStatus().observe(requireActivity(),
+            { isErrorOccurred ->
+                if(isErrorOccurred == true){
+                    showSnackBar("Couldn't connect to the server", R.color.redColorSnackBar)
                 }
             })
 

@@ -23,4 +23,8 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
         return newsRepository.getNewsDataFromDatabase()
     }
 
+    fun getErrorStatus(): LiveData<Boolean>{
+        return newsRepository.getErrorStatus()
+    }
+
 }
